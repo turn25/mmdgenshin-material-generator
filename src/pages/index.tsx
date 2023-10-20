@@ -2,7 +2,6 @@ import clsx from 'clsx';
 import { useCallback, useMemo, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { generateShaderOutput } from '../libs/shader-output';
-import mockInput from '../../mock/json/Avatar_Boy_Bow_Aquaria_Mat_Hair.json';
 
 const removeExt = (fileName: string) =>
   fileName.split('.').slice(0, -1).join('.');
@@ -37,29 +36,23 @@ const IndexPage = () => {
   const [file, setFile] = useState<File | null>(null);
   const fileName = file?.name;
 
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-    isFocused,
-    isDragAccept,
-    isDragReject,
-  } = useDropzone({
-    accept: { 'application/json': ['.json'] },
-    maxFiles: 1,
-    onDropAccepted: async (files) => {
-      const firstFile = files?.[0];
-      if (!firstFile) return;
+  const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
+    useDropzone({
+      accept: { 'application/json': ['.json'] },
+      maxFiles: 1,
+      onDropAccepted: async (files) => {
+        const firstFile = files?.[0];
+        if (!firstFile) return;
 
-      const fileReader = new FileReader();
-      fileReader.onload = () => {
-        const fileData = JSON.parse(fileReader.result as string);
+        const fileReader = new FileReader();
+        fileReader.onload = () => {
+          const fileData = JSON.parse(fileReader.result as string);
 
-        setFile({ name: firstFile.name, data: fileData });
-      };
-      fileReader.readAsText(firstFile);
-    },
-  });
+          setFile({ name: firstFile.name, data: fileData });
+        };
+        fileReader.readAsText(firstFile);
+      },
+    });
 
   const output = useMemo(() => {
     return generateShaderOutput(file?.data);
