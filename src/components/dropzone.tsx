@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useDropzone } from 'react-dropzone';
 
 export interface DropzoneProps {
-  onDropSuccess: (file: { name: string; data: any }) => void;
+  onDropSuccess: (data: any) => void;
 }
 
 const Dropzone = (props: DropzoneProps) => {
@@ -26,7 +26,7 @@ const Dropzone = (props: DropzoneProps) => {
       fileReader.onload = () => {
         const fileData = JSON.parse(fileReader.result as string);
 
-        onDropSuccess?.({ name: firstFile.name, data: fileData });
+        onDropSuccess?.(fileData);
       };
       fileReader.readAsText(firstFile);
     },

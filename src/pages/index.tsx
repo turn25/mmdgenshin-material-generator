@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
 import { generateShaderOutput } from '@/libs';
-import { removeExt } from '@/utils';
 import { ContentFrame, Dropzone, Footer, Header } from '@/components';
 import { Toaster } from 'sonner';
 
@@ -10,11 +9,11 @@ const generateDownloadName = (fileName: string) => {
 
   if (fileName) {
     try {
-      const nameArr = removeExt(fileName).split('_');
+      const nameArr = fileName.split('_');
       const materialName = nameArr[nameArr.length - 1];
       const charName = nameArr[3];
       if (charName && materialName) {
-        name = charName + '_' + materialName;
+        name = name + '_' + charName + '_' + materialName;
         name = name.toLocaleLowerCase();
       }
     } catch (e) {
@@ -25,15 +24,9 @@ const generateDownloadName = (fileName: string) => {
   return name + '.fx';
 };
 
-export type File = {
-  name: string;
-  data: any;
-};
-
 const IndexPage = () => {
-  const [file, setFile] = useState<File | null>(null);
-  const fileName = file?.name;
-  const fileData = file?.data;
+  const [fileData, setFileData] = useState<any>(null);
+  const fileName = fileData?.['m_Name'];
 
   const output = useMemo(() => {
     return generateShaderOutput(fileData);
@@ -57,7 +50,7 @@ const IndexPage = () => {
       <Header />
 
       <main className='container max-w-screen-lg py-8 space-y-8 text-neutral-600 flex-1'>
-        <Dropzone onDropSuccess={(file) => setFile(file)} />
+        <Dropzone onDropSuccess={(data) => setFileData(data)} />
 
         {output && (
           <>
