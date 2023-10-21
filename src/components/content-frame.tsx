@@ -12,6 +12,7 @@ const ContentFrame = (props: ContentFrameProps) => {
     <div className='relative'>
       <pre
         contentEditable
+        suppressContentEditableWarning
         className='focus:ring-4 ring-blue-300 outline-none rounded-2xl p-4 bg-neutral-50 transition-all overflow-hidden border'
       >
         {content}
