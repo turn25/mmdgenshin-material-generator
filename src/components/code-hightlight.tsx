@@ -1,21 +1,35 @@
+import { useEffect, useRef, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { toast } from 'sonner';
+import Prism from 'prismjs';
+import 'prismjs/components/prism-c';
+import 'prismjs/components/prism-hlsl';
+import '@/styles/prism.css';
 
-export interface ContentFrameProps {
+export interface CodeHighlightProps {
   content: string;
 }
 
-const ContentFrame = (props: ContentFrameProps) => {
+const CodeHighlight = (props: CodeHighlightProps) => {
   const { content } = props;
+  const codeElementRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!codeElementRef.current) return;
+
+    Prism.highlightElement(codeElementRef.current);
+  }, []);
 
   return (
     <div className='relative'>
       <pre
         contentEditable
         suppressContentEditableWarning
-        className='focus:ring-4 ring-blue-300 outline-none rounded-2xl p-4 bg-neutral-50 transition-all overflow-hidden border'
+        className='scrollbar-thin scrollbar-thumb-neutral-500 focus:ring-4 ring-blue-300 outline-none rounded-2xl p-4 bg-neutral-50 transition-all overflow-hidden border min-h-[240px] max-h-[90vh]'
       >
-        {content}
+        <code ref={codeElementRef} className='language-hlsl'>
+          {content}
+        </code>
       </pre>
       <CopyToClipboard
         text={content}
@@ -46,4 +60,4 @@ const ContentFrame = (props: ContentFrameProps) => {
   );
 };
 
-export { ContentFrame };
+export { CodeHighlight };

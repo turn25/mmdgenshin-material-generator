@@ -1,4 +1,4 @@
 export * from './dropzone';
-export * from './content-frame';
+export * from './code-hightlight';
 export * from './footer';
 export * from './header';

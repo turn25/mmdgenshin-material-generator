@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import { generateShaderOutput } from '@/libs';
-import { ContentFrame, Dropzone, Footer, Header } from '@/components';
+import { CodeHighlight, Dropzone, Footer, Header } from '@/components';
 import { Toaster } from 'sonner';
 
 // Avatar_Boy_Bow_Aquaria_Mat_Body
@@ -63,7 +63,7 @@ const IndexPage = () => {
               </button>
             </div>
 
-            <ContentFrame content={output} />
+            <CodeHighlight key={output} content={output} />
           </>
         )}
       </main>
