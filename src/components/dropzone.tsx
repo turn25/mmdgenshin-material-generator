@@ -45,12 +45,14 @@ const Dropzone = (props: DropzoneProps) => {
       <input {...getInputProps()} />
 
       {acceptedFiles?.length > 0 ? (
-        <p className='text-xl font-bold'>
+        <p className='text-xl font-bold text-center overflow-hidden'>
           Current Material:{' '}
-          <span className='text-blue-500'>{acceptedFiles[0].name}</span>
+          <span className='text-blue-500 truncate'>
+            {acceptedFiles[0].name}
+          </span>
         </p>
       ) : (
-        <div className='flex flex-col items-center space-y-2'>
+        <div className='flex flex-col items-center space-y-2 text-center'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
