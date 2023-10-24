@@ -21,13 +21,20 @@ export const generateShaderOutput = (data: any) => {
 
   if (!savedProperty || !floats || !colors) return null;
 
+  const getCurrentList = <T>(arr: T[]) =>
+    Array.isArray(arr) ? arr : (Object.entries(arr) as T[]);
+
   const findFloat = (key: string, prefix: boolean = true) => {
-    const float = floats?.find((row) => row?.[0] === key)?.[1];
+    const listItem = getCurrentList(floats);
+
+    const float = listItem?.find((row) => row?.[0] === key)?.[1];
     return prefix ? addPrefix(float!) : float;
   };
 
   const findColor = (key: string, type: 'float3' | 'float4' = 'float4') => {
-    const rgba = colors?.find((row) => row?.[0] === key)?.[1];
+    const listItem = getCurrentList(colors);
+
+    const rgba = listItem?.find((row) => row?.[0] === key)?.[1];
     if (!rgba) return;
 
     const output = Object.entries(rgba)
