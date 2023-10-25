@@ -164,7 +164,7 @@ export const generateShaderOutput = (data: any) => {
 #define USE_LIGHTMAP_AO 
 #define USE_VERTEXCOLOR_AO 
 #define USE_VERTEXCOLOR_RAMP_WIDTH   
-#define USE_RAMP_TEXTURE  
+${isFaceMat ? '// ' : ''}#define USE_RAMP_TEXTURE  
 #define SHADOW_RAMP_WIDTH ${SHADOW_RAMP_WIDTH}
 #define SHADOW_LIGHT_AREA  ${SHADOW_LIGHT_AREA}
 #define FACE_SHADOW_SOFTNESS ${FACE_SHADOW_SOFTNESS}
